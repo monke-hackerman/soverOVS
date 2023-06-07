@@ -60,10 +60,16 @@ app.post(("/login"), async (req, res, next) => {
         req.session.userID = userData.id
         req.session.loggedin = true
 
+        req.session.IsUserAdmin = false
+        req.session.IsUserElev = false
+
         if(userData.TillgangNiva === 0){
             req.session.IsUserAdmin = true
+        }else if(req.session.IsUserElev === 1){
+            req.session.IsUserElev = true
         }else{
             req.session.IsUserAdmin = false
+            req.session.IsUserElev = false
         }
 
         console.log(req.session.loggedin)
@@ -108,7 +114,9 @@ app.get("/front" , (req, res) => {
         profilepage: false,
         adminpage: false,
 
-        admin: req.session.IsUserAdmin,
+          admin: req.session.IsUserAdmin,
+            elev: req.session.IsUserElev,
+
     })
 })
 app.get("/profile" , (req, res) => {
@@ -121,6 +129,7 @@ app.get("/profile" , (req, res) => {
         adminpage: false,
 
         admin: req.session.IsUserAdmin,
+        elev: req.session.IsUserElev,
     })
 })
 
@@ -146,6 +155,21 @@ app.post("/changePW", async (req, res) => {
         adminpage: false,
 
         admin: req.session.IsUserAdmin,
+        elev: req.session.IsUserElev,
+    })
+})
+
+app.get("/elev", (req, res) => {
+    check(req, res)
+
+    let klasseID = db.prepare(`SELECT Klasse_id FROM Brukere WHERE id = ?`).get(req.session.userID)
+    let klasse = db.partialsPath(`SELECT Navn FROM Klasse WHERE id = ?`).get(klasseID)
+
+    res.render("frontpage.hbs", {
+        klasse: klasse,
+
+        admin: req.session.IsUserAdmin,
+        elev: req.session.IsUserElev,
     })
 })
 
@@ -164,7 +188,8 @@ app.get("/admin", (req, res) =>{
         profilepage: false,
         adminpage: true,
 
-        admin: req.session.IsUserAdmin,
+         admin: req.session.IsUserAdmin,
+        elev: req.session.IsUserElev,
     })
 })
 

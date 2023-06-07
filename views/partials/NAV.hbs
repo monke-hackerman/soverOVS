@@ -3,8 +3,11 @@
             <ul class="navbar">
                 <li><a href="/front" {{#if frontpage}}style="text-decoration: underline;"{{/if}}><i class="">Framside</i></a></li>
                 <li><a href="/profile" {{#if profilepage}}style="text-decoration: underline;"{{/if}}><i class="">Min profil</i></a></li>
-
+                {{#if elev}}
+                <li><a href="/elev" {{#if adminpage}}style="text-decoration: underline;"{{/if}}><i class="">ElevSide</i></a></li>
+                {{/if}}
                 {{#if admin}}
+                <li><a href="/elev" {{#if adminpage}}style="text-decoration: underline;"{{/if}}><i class="">ElevSide</i></a></li>
                 <li><a href="/admin" {{#if adminpage}}style="text-decoration: underline;"{{/if}}><i class="">Admin</i></a></li>
                 {{/if}}
                 
