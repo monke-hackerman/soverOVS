@@ -1,0 +1,80 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #424242;
+    color: white;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+.nice{
+    border: 1px solid;
+    width: 100%;
+}
+
+* :not(.admintable) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    min-width: 250px;
+    background:#212121;
+}
+
+.sidebar header {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 70px;
+    background: #28074b;
+    user-select: none;
+}
+
+.sidebar ul a {
+    display: block;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    transition: .4s;
+}
+
+ul li:hover a {
+    padding-left: 50px;
+}
+
+.sidebar ul a i {
+    margin-right: 16px;
+}
+
+.admintable table, th, td   {  
+    border: 1px solid;  
+}
+
+.admintable th, td{
+    padding: 15px;
+}
+
+.newtable table, td{
+    border: 0px solid; 
+}
+.newtable{
+    padding-top: 25px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="center">
+        <fieldset>
+            <br><br><br>
+            <form action="/NyBruk" method="post">
+                <label for="FN">første navn: </label><input type="text" name="FN"><br>
+                <label for="EN">etter navn: </label><input type="text" name="EN"><br>
+                <label for="email">email: </label><input type="email" name="email"><br>
+                <label for="tilgang">tilagng: </label><input type="number" name="tilgang"><br>
+                <label for="passord">Passord: </label><input type="password" name="passord" id=""><br>
+                <label for="adress">adress: </label><input type="text" name="adress"><br>
+
+                <label for="rolle">rolle: </label><input type="number" name="rolle"><br>
+                <button>Register ny bruker</button>
+            </form>
+            <h3><a href="/">logginn</a></h3>
+        </fieldset>
+    </div>
+    <!--her er et javascript script for å skjekke om en feilkode har blitt send tilbake fra serveren -->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if(params.get('error')==="invalid_username"){
+            alert("Username can only contain letters A-Z, a-z, and _")
+        }
+    </script>
+</body>
+</html>
