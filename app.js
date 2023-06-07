@@ -60,6 +60,12 @@ app.post(("/login"), async (req, res, next) => {
         req.session.userID = userData.id
         req.session.loggedin = true
 
+        if(userData.TillgangNiva === 0){
+            req.session.IsUserAdmin = true
+        }else{
+            req.session.IsUserAdmin = false
+        }
+
         console.log(req.session.loggedin)
         res.redirect("/hoved")
 
@@ -97,10 +103,12 @@ app.get("/front" , (req, res) => {
     check(req, res)
     
     res.render("frontpage.hbs", {
-        msg: msg,
         PersonName: req.session.username,
         frontpage: true,
         profilepage: false,
+        adminpage: false,
+
+        admin: req.session.IsUserAdmin,
     })
 })
 app.get("/profile" , (req, res) => {
@@ -110,6 +118,9 @@ app.get("/profile" , (req, res) => {
         PersonName: req.session.username,
         frontpage: false,
         profilepage: true,
+        adminpage: false,
+
+        admin: req.session.IsUserAdmin,
     })
 })
 
@@ -132,7 +143,52 @@ app.post("/changePW", async (req, res) => {
         PersonName: req.session.username,
         frontpage: true,
         profilepage: false,
+        adminpage: false,
+
+        admin: req.session.IsUserAdmin,
     })
+})
+
+app.get("/admin", (req, res) =>{
+    if(!req.session.IsUserAdmin){
+        console.log("not admin")
+        res.redirect("/")
+    }
+
+    let users = db.prepare(`SELECT * FROM brukere;`).all()
+
+    res.render("adminpage.hbs", {
+        user: users,
+
+        frontpage: false,
+        profilepage: false,
+        adminpage: true,
+
+        admin: req.session.IsUserAdmin,
+    })
+})
+
+app.post("/delUSER", (req, res) => {
+    let svr = req.body;
+    db.prepare(`UPDATE Enheter SET Eier_id = NULL  WHERE Eier_id = ?`).run(svr.id)
+    db.prepare(`DELETE FROM Brukere WHERE id = ?`).run(svr.id)
+    res.redirect("/admin")
+})
+app.post("/editBruk", (req, res) => {
+    let svr = req.body;
+
+    console.log(svr)
+
+    for (const property in svr) {
+        if (Object.keys(svr[property]).length !== 0 && property !== 'id') {
+            console.log(`${property}: ${svr[property]}`);
+            db.prepare(`UPDATE users SET ${property} = ? WHERE id = ?`).run(svr[property], svr.id)
+
+        }else{
+            console.log("empty")
+        }
+      }
+    res.redirect("/admin")
 })
 
 //prøver å stoppe serveren fra å stoppe hvis den krasjer

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    {{>NAV}}
+    <div class="nice">
+        <div class="admintable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>Tillgang Nivå</th>
+                    </tr> 
+                </thead>
+                {{#each user}}
+                    <tbody>
+                        <form action="/editBruk" method="post">
+                            <td>{{this.id}}<input type="hidden" value="{{this.id}}" name="id"></td>
+                            <td><input type="text" placeholder="{{this.username}}" name="username"></td>
+                            <td><input type="text" placeholder="{{this.Fornavn}}" name="first"></td>
+                            <td><input type="text" placeholder="{{this.Etternavn}}" name="last"></td>
+                            <td><input type="number" placeholder="{{this.TillgangNiva}}" name="role"></td>
+                            <td><button type="submit">send inn</button></td>
+                        </form>
+                            <td>
+                                <form action="/delUSER" method="post">
+                                    <input type="hidden" value="{{this.id}}" name="id">
+                                    <button type="submit">slett bruker</button>
+                                </form>
+                            </td>
+                    {{/each}}
+            
+                </tbody>
+            </table>
+        </div>
+        <h3>lag ny bruker</h3>
+        <table>
+            <div class="newtable">
+                    <form action="/NyBruk" method="post">
+                        <!--<td><label for="navn">Brukernavn: </label><br><input type="text" name="navn" id=""></td>-->
+                        <td><label for="FN">første navn: </label><input type="text" name="FN"></td>
+                        <td><label for="EN">etter navn: </label><input type="text" name="EN"></td>
+                        <td><label for="email">email: </label><input type="email" name="email"></td><tr></tr>
+                        <td><label for="tilgang">tilagng: </label><input type="number" name="tilgang"></td> 
+                        <td><label for="passord">Passord: </label><input type="password" name="passord" id=""></td>
+                        <td><label for="adress">adress: </label><input type="text" name="adress"> </td>
+                        <tr></tr>
+                        <td><button>Register ny bruker</button></td>
+                    </form>
+            </div>
+        </table> <br>
+        <h3>rediger bruker: skriv inn bruker id og la ting du ikke vil skal redigeres stå blank</h3>
+        <table>
+            <div class="newtable">
+
+                <tr>
+
+                </tr>
+            </div>
+        </table>  
+ 
+            
+        
+    </div>
+</body>
+</html>
