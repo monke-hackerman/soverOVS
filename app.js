@@ -163,10 +163,12 @@ app.get("/elev", (req, res) => {
     check(req, res)
 
     let klasseID = db.prepare(`SELECT Klasse_id FROM Brukere WHERE id = ?`).get(req.session.userID)
-    let klasse = db.partialsPath(`SELECT Navn FROM Klasse WHERE id = ?`).get(klasseID)
+    let klasse = db.prepare(`SELECT Navn FROM Klasse WHERE id = ?`).get(klasseID.Klasse_id)
 
-    res.render("frontpage.hbs", {
-        klasse: klasse,
+    
+
+    res.render("elevpage.hbs", {
+        klasse: klasse.Navn,
 
         admin: req.session.IsUserAdmin,
         elev: req.session.IsUserElev,
@@ -188,7 +190,7 @@ app.get("/admin", (req, res) =>{
         profilepage: false,
         adminpage: true,
 
-         admin: req.session.IsUserAdmin,
+        admin: req.session.IsUserAdmin,
         elev: req.session.IsUserElev,
     })
 })
