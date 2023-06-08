@@ -42,7 +42,7 @@ app.post(("/NyBruk"), async (req, res) => {
         username = PREusername
     }
 
-    db.prepare("INSERT INTO Brukere (username, Fornavn, Etternavn, Email, TillgangNiva, PassordHash, Rolle) VALUES (?, ?, ?, ?, ?, ?, ?)").run(username, svr.FN, svr.EN, svr.email, svr.tilgang, hash, svr.rolle)
+    db.prepare("INSERT INTO Brukere (username, Fornavn, Etternavn, Email, TillgangNiva, PassordHash) VALUES (?, ?, ?, ?, ?, ?)").run(username, svr.FN, svr.EN, svr.email, svr.tilgang, hash)
     res.redirect("/admin")
 })
 app.post(("/login"), async (req, res, next) => {
