@@ -1,0 +1,21 @@
+fieldset{
+    margin-left: 500px;
+    margin-right: 500px;
+    height: 300px;
+    background-color: white;
+}
+body{
+    background-image: url("Pattrn.png");
+}
+.center {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+.loggInForm{
+    display: inline-block;
+    background-color: rgb(255, 255, 255);
+    width: 30%;
+} 

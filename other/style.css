@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #424242;
+    background-color: #1f2f45;
     color: white;
     height: 100%;
     width: 100%;
@@ -31,7 +31,7 @@ body {
 
 .sidebar {
     min-width: 250px;
-    background:#212121;
+    background:#071e3d;
 }
 
 .sidebar header {

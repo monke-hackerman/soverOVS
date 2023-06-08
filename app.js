@@ -17,7 +17,7 @@ hbs.registerPartials(partialsPath)
 app.use(express.urlencoded({ extended: true }))
 
 app.use(session({
-    secret: "aWYgeW91IHJlYWQgdGhpcyB1IGFyZWlmIHlvdSByZWFkIHRoaXMgdSBhcmUgYSBtZWdhIGxvc2VyIGxtYW8gYSBtZWdhIGxvc2VyIGxtYW8=",
+    secret: "aWYgeW91IHJlYWQgdGhpcyB5b3UgYXJlIGEgYmlnIGxvc2VyIGxtYW8=",
     resave: false,
     saveUninitialized: false
 }))
@@ -216,6 +216,11 @@ app.post("/editBruk", (req, res) => {
         }
       }
     res.redirect("/admin")
+})
+
+app.get("/logout", (req, res) => {
+    req.session.destroy()
+    res.sendFile(rootpath + "/logg.html")
 })
 
 //prøver å stoppe serveren fra å stoppe hvis den krasjer
