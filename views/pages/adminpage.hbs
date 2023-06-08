@@ -19,6 +19,7 @@
                         <th>first name</th>
                         <th>last name</th>
                         <th>Tillgang Nivå</th>
+                        <th>klasse id</th>
                     </tr> 
                 </thead>
                 {{#each user}}
@@ -26,9 +27,10 @@
                         <form action="/editBruk" method="post">
                             <td>{{this.id}}<input type="hidden" value="{{this.id}}" name="id"></td>
                             <td><input type="text" placeholder="{{this.username}}" name="username"></td>
-                            <td><input type="text" placeholder="{{this.Fornavn}}" name="first"></td>
-                            <td><input type="text" placeholder="{{this.Etternavn}}" name="last"></td>
-                            <td><input type="number" placeholder="{{this.TillgangNiva}}" name="role"></td>
+                            <td><input type="text" placeholder="{{this.Fornavn}}" name="Fornavn"></td>
+                            <td><input type="text" placeholder="{{this.Etternavn}}" name="Etternavn"></td>
+                            <td><input type="number" placeholder="{{this.TillgangNiva}}" name="TillgangNiva"></td>
+                            <td><input type="number" placeholder="{{this.Klasse_id}}" name="Klasse_id"></td>
                             <td><button type="submit">send inn</button></td>
                         </form>
                             <td>
@@ -54,6 +56,8 @@
                         <td><label for="passord">Passord: </label><input type="password" name="passord" id=""></td>
                         <td><label for="adress">adress: </label><input type="text" name="adress"> </td>
                         <tr></tr>
+                        <td><label for="klasse">klasse: </label><input type="text" name="klasse"> </td>
+
                         <td><button>Register ny bruker</button></td>
                     </form>
             </div>

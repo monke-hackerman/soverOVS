@@ -65,7 +65,7 @@ app.post(("/login"), async (req, res, next) => {
 
         if(userData.TillgangNiva === 0){
             req.session.IsUserAdmin = true
-        }else if(req.session.IsUserElev === 1){
+        }else if(userData.TillgangNiva === 1){
             req.session.IsUserElev = true
         }else{
             req.session.IsUserAdmin = false
@@ -209,7 +209,7 @@ app.post("/editBruk", (req, res) => {
     for (const property in svr) {
         if (Object.keys(svr[property]).length !== 0 && property !== 'id') {
             console.log(`${property}: ${svr[property]}`);
-            db.prepare(`UPDATE users SET ${property} = ? WHERE id = ?`).run(svr[property], svr.id)
+            db.prepare(`UPDATE Brukere SET ${property} = ? WHERE id = ?`).run(svr[property], svr.id)
 
         }else{
             console.log("empty")
