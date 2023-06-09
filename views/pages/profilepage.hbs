@@ -24,6 +24,34 @@
                 <br>
                 <input type="submit" value="Submit">
             </form>
-    </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>username</th>
+                        <th>fornavn</th>
+                        <th>etternavn</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {{#each user}}
+                        <form action="/userEDIT" method="post">
+                            <input type="hidden" value="{{this.id}}" name="id"><br>
+                            <td>{{this.username}}</td>
+                            <td><input type="text" placeholder="{{this.Fornavn}}" name="Fornavn"></td>
+                            <td><input type="text" placeholder="{{this.Etternavn}}" name="Etternavn">  </td>
+                            <td><button type="submit"><img src="svg/save.svg" alt="save changes"></button> <br></td>
+                        </form>
+
+
+                </tbody>
+            </table>
+            <h1>vil du slette bruker en din?</h1>
+            <form action="/userDEL" method="post">
+                <input type="hidden" value="{{this.id}}" name="id">
+                ja:<button type="submit"><img src="svg/trash.svg" alt="save changes"></button>
+            </form>
+            {{/each}}
+            </div>
 </body>
 </html>

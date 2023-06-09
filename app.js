@@ -122,8 +122,12 @@ app.get("/front" , (req, res) => {
 app.get("/profile" , (req, res) => {
     check(req, res)
     
+    let brukerData = db.prepare(`SELECT * FROM brukere WHERE id = ?`).all(req.session.userID)
+
     res.render("profilepage.hbs", {
         PersonName: req.session.username,
+        user: brukerData,
+
         frontpage: false,
         profilepage: true,
         adminpage: false,
@@ -132,6 +136,41 @@ app.get("/profile" , (req, res) => {
         elev: req.session.IsUserElev,
     })
 })
+
+app.post("/userEDIT", (req, res) => {
+    let svr = req.body
+
+    for (const property in svr) {
+        if (Object.keys(svr[property]).length !== 0 && property !== 'id') {
+            console.log(`${property}: ${svr[property]}`);
+            db.prepare(`UPDATE Brukere SET ${property} = ? WHERE id = ?`).run(svr[property], svr.id)
+
+        }else{
+            console.log("empty")
+        }
+      }
+      let nameData = db.prepare(`SELECT * FROM brukere WHERE id = ?`).get(svr.id)
+
+      let PREusername = nameData.Fornavn.slice(0,3) + nameData.Etternavn.slice(0,3)
+      let username = ""
+  
+      let usernameCheck = db.prepare(`SELECT username FROM Brukere WHERE username = ?;`).all(PREusername)
+      if(PREusername == usernameCheck.username){
+          let size = Object.keys(usernameCheck).length;
+          username = PREusername + size.toString()
+      }else{
+          username = PREusername
+      }
+
+      db.prepare(`UPDATE Brukere SET username = ? WHERE id = ?`).run(PREusername, svr.id)
+    res.redirect("/profile")
+})
+app.post("/userDEL", (req, res) => {
+    let svr = req.body
+    db.prepare(`UPDATE Enheter SET Eier_id = NULL  WHERE Eier_id = ?`).run(svr.id)
+    db.prepare(`DELETE FROM Brukere WHERE id = ?`).run(svr.id)
+})
+
 
 app.post("/changePW", async (req, res) => {
     let svr = req.body;
